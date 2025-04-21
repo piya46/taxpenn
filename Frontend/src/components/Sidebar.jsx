@@ -1,16 +1,25 @@
 import React from 'react';
-import { Navbar as MantineNavbar, NavLink } from '@mantine/core';
+import { Box, NavLink } from '@mantine/core';
+import { IconHome2, IconLogout } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Sidebar() {
   const navigate = useNavigate();
   return (
-    <MantineNavbar width={{ base: 200 }} p="xs">
-      <NavLink label="Profile" onClick={() => navigate('/profile')} />
-      <NavLink label="Upload" onClick={() => navigate('/upload')} />
-      <NavLink label="History" onClick={() => navigate('/history')} />
-      <NavLink label="Tax Calc" onClick={() => navigate('/tax')} />
-      <NavLink label="Deductions" onClick={() => navigate('/deductions')} />
-    </MantineNavbar>
+    <Box component="nav" style={{ width: 250, padding: '1rem', background: '#fff', height: '100vh' }}>
+      <NavLink
+        label="Dashboard"
+        icon={<IconHome2 size={16} />}
+        onClick={() => navigate('/dashboard')}
+      />
+      <NavLink
+        label="Logout"
+        icon={<IconLogout size={16} />}
+        onClick={() => {
+          localStorage.removeItem('token');
+          navigate('/login', { replace: true });
+        }}
+      />
+    </Box>
   );
 }
