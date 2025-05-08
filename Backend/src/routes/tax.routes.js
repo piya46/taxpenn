@@ -5,5 +5,6 @@ const { authenticate } = require('../middleware/auth.middleware');
 router.post('/calculate', authenticate, taxCtrl.calculateTax);
 router.post('/current-deduction', authenticate, taxCtrl.calculateCurrentDeduction);
 router.post('/rec-deduction', authenticate, taxCtrl.calculateRecDeduction);
+router.post('/breakdown', authenticate, taxCtrl.breakdown);
 
 module.exports = router;

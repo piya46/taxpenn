@@ -17,3 +17,29 @@ exports.calculateRecDeduction = async (req, res) => {
   const service = new TaxService(incomes, []);
   res.json({ recDeduction: service.calculateRecDeduction() });
 };
+
+exports.breakdown = async (req, res) => {
+  const { incomes, deductions, allowances } = req.body;
+  const service = new TaxService(incomes, deductions, allowances);
+  res.json({
+    totalIncome: service.totalIncome(),
+    totalAllowances: service.totalAllowances(),
+    allowances: service.allowances,
+    totalDeductions: service.totalDeductions(),
+    taxableIncome: service.taxableIncome()
+  });
+};
+
+exports.currentDeduction = async (req, res) => {
+  const { deductions, allowances } = req.body;
+  const svc = new TaxService([], deductions, allowances);
+  const value = svc.calculateCurrentDeduction();
+  res.json({ currentDeduction: value });
+};
+
+exports.recDeduction = async (req, res) => {
+  const { incomes, allowances } = req.body;
+  const svc = new TaxService(incomes, [], allowances);
+  const value = svc.calculateRecDeduction();
+  res.json({ recDeduction: value });
+};
